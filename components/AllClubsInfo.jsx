@@ -15,6 +15,7 @@ var AllClubsInfo = React.createClass({
 		
 	},
 	render: function () {
+		
 		return (
 			<div>
 			 	<span>myclubs</span>

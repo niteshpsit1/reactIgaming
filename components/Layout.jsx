@@ -13,11 +13,11 @@ var serviceCall = function (url, data){
 	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	        success: function (data, textStatus, jqXHR) {
 	            if( textStatus == "success") {
-	                responseData.token = JSON.parse(jqXHR.responseText).response.token;
+	            	console.log("success-in");
+	                fulfill(JSON.parse(jqXHR.responseText).response.token);
 	            }
-	            if (Object.keys(responseData).length){
-	      			fulfill(responseData);
-	    		} else {
+	            else {
+	            	console.log("success-out");
 	      			reject('error');
 	    		}
 	        }
@@ -37,11 +37,11 @@ var Layout =  React.createClass({
     render: function() {
         return (
         	<div>
+        		<h2>Super Admin {this.state.token}</h2>
         		<a onClick={this._onClickHome} href="#"><div name="homeState">Home</div></a>
         		<a onClick={this._onClickHome} href="#"><div name="userManagementState">User Management</div></a>
         		<a onClick={this._onClickHome} href="#"><div name="clubManagementState">Club Management</div></a>
         		<a onClick={this._onClickHome} href="#"><div name="settingState">setting</div></a>
-                <h2>Super Admin</h2>
                 
                 {this.state.homeState && 
                 <div>
@@ -74,13 +74,11 @@ var Layout =  React.createClass({
 		serviceCall(url, userCredentials)
 		.then(function(data){
 			currentthis.setState({
-				token: data.token
+				token: data
 			});
 		})
-		.catch(function(){
-			currentthis.setState({
-				token:"welcame"
-			});
+		.catch(function(error){
+			console.log(error);
 		});    	
     },
     _onClickHome: function(event){
