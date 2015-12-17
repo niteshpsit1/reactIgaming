@@ -5,7 +5,6 @@ var ClubMembers = React.createClass({
 		return (
 			<div>
 				<div><h5><span>Group Members</span></h5></div>
-				
 			</div>
 		);
 	}

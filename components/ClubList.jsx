@@ -1,36 +1,26 @@
-var allUrl = {
-	getALlClub:'http://45.33.86.141/wickedride/rest/service/getAllClubForGuest'
+var AllUrl = {
+	
 }
-var ClubManagement = React.createClass({
-	getInitialState: function(){
-		return {
-			clubs:[],
-			showClubMenberList:false,
-			ClubMembers:[]
-		}
-	},
-	componentWillMount: function () {
-		var currentThis = this;
-		postCall(allUrl.getALlClub )
-		.then(function(clubs){
-			currentThis.setState({
-				clubs:clubs
-			});
-		})
-		.catch(function(error){
-			console.log("====catch",error);	
-		});	
-	},
-	render: function (){
-		var currentThis = this;
+
+var ClubList = React.createClass({
+
+	render: function () {
+		
 		return (
-			<div>
-			<div><span>name</span><span>Description</span></div>
-			{this.state.clubs.map(function(club){
-				return <ClubList club={club}/>
-			})}
+			<div><span>{this.props.club.name}:</span>
+				<span>{this.props.club.description}</span>
+				<span>&nbsp;<a onClick={this._onClick} href="#"><div ><b>see total Rides</b></div></a></span>
+				<span>&nbsp;<a onClick={this._onClick} href="#"><div id="ram"><b name="Nitesh">delete Ride</b></div></a></span>
+				<span>&nbsp;<a onClick={this._onClick} href="#"><div><b>see membses</b></div></a></span>
+				<ClubMembers ></ClubMembers>
 			</div>
 		);
+	},
+	_onClick: function(event){
+			console.log("++++++++++=========",$(event.target).attr("name"));
+			var data = {}
+			data.id = $(event.target).attr("name")
+			//postCall()
 	}
 });
 var postCall = function (url, data){
