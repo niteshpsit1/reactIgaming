@@ -13,11 +13,9 @@ var serviceCall = function (url, data){
 	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	        success: function (data, textStatus, jqXHR) {
 	            if( textStatus == "success") {
-	            	console.log("success-in");
 	                fulfill(JSON.parse(jqXHR.responseText).response.token);
 	            }
 	            else {
-	            	console.log("success-out");
 	      			reject('error');
 	    		}
 	        }
@@ -31,17 +29,21 @@ var Layout =  React.createClass({
 			homeState:true,
 			userManagementState:false,
 			clubManagementState:false,
-			settingState:false
+			settingState:false,
+			termAndConditions:false,
+			aboutUs:false
 		}
 	},
     render: function() {
         return (
         	<div>
         		<h2>Super Admin {this.state.token}</h2>
-        		<a onClick={this._onClickHome} href="#"><div name="homeState">Home</div></a>
-        		<a onClick={this._onClickHome} href="#"><div name="userManagementState">User Management</div></a>
-        		<a onClick={this._onClickHome} href="#"><div name="clubManagementState">Club Management</div></a>
-        		<a onClick={this._onClickHome} href="#"><div name="settingState">setting</div></a>
+        		<a onClick={this._onClick} href="#"><div name="homeState">Home</div></a>
+        		<a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a>
+        		<a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a>
+        		<a onClick={this._onClick} href="#"><div name="termAndConditions">TermAndConditions</div></a>
+        		<a onClick={this._onClick} href="#"><div name="aboutUs">AboutUs</div></a>
+        		<a onClick={this._onClick} href="#"><div name="settingState">setting</div></a>
                 
                 {this.state.homeState && 
                 <div>
@@ -58,13 +60,25 @@ var Layout =  React.createClass({
                 {this.state.clubManagementState &&
                 <div> 
                 <h2>Club Management</h2>
-                <ClubManagement token={this.state.token} />
+                <ClubManagement token={this.state.token}  />
             	</div>}
 
                 {this.state.settingState &&
                 <div> 
                 <h2>Setting</h2>
                 <SettingComponent token={this.state.token} />
+            	</div>}
+
+            	{this.state.termAndConditions &&
+                <div> 
+                <h2>Setting</h2>
+                <TermAndConditions token={this.state.token} />
+            	</div>}
+
+            	{this.state.aboutUs &&
+                <div> 
+                <h2>AboutUs</h2>
+                <AboutUs token={this.state.token} />
             	</div>}
             </div>
         );
@@ -81,13 +95,15 @@ var Layout =  React.createClass({
 			console.log(error);
 		});    	
     },
-    _onClickHome: function(event){
+    _onClick: function(event){
     	
 		this.setState({
 			homeState: $(event.target).attr("name") == 'homeState' ? true : false,
 			userManagementState: $(event.target).attr("name") == 'userManagementState' ? true : false,
 			clubManagementState: $(event.target).attr("name") == 'clubManagementState' ? true : false,
-			settingState: $(event.target).attr("name") == 'settingState' ? true : false
+			settingState: $(event.target).attr("name") == 'settingState' ? true : false,
+			termAndConditions: $(event.target).attr("name") == 'termAndConditions' ? true : false,
+			aboutUs: $(event.target).attr("name") == 'aboutUs' ? true : false
 		})
     }
 });
