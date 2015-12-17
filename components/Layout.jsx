@@ -37,12 +37,19 @@ var Layout =  React.createClass({
     render: function() {
         return (
         	<div>
-        		<a onClick={this._onClickHome} href="#"><div>Home</div></a>
-        		<a onClick={this._onClickHome} href="#"><div>User Management</div></a>
-        		<a onClick={this._onClickHome} href="#"><div>Club Management</div></a>
-        		<a onClick={this._onClickHome} href="#"><div>setting</div></a>
+        		<a onClick={this._onClickHome} href="#"><div name="homeState">Home</div></a>
+        		<a onClick={this._onClickHome} href="#"><div name="userManagementState">User Management</div></a>
+        		<a onClick={this._onClickHome} href="#"><div name="clubManagementState">Club Management</div></a>
+        		<a onClick={this._onClickHome} href="#"><div name="settingState">setting</div></a>
                 <h2>Demo {this.state.token}</h2>
                 <AllClubsInfo token={this.state.token}/>
+                {this.state.homeState && <h2>Demo1 {this.state.token}</h2>}
+
+                {this.state.userManagementState && <h2>Demo2 {this.state.token}</h2>}
+
+                {this.state.clubManagementState && <h2>Demo3 {this.state.token}</h2>}
+
+                {this.state.settingState && <h2>Demo4 {this.state.token}</h2>}
             </div>
         );
     },
@@ -60,7 +67,13 @@ var Layout =  React.createClass({
 			});
 		});    	
     },
-    _onClickHome: function(){
-    	console.log("=====HomeHo");
+    _onClickHome: function(event){
+    	console.log($(event.target).attr("name"));
+		this.setState({
+			homeState: $(event.target).attr("name") == 'homeState' ? true : false,
+			userManagementState: $(event.target).attr("name") == 'userManagementState' ? true : false,
+			clubManagementState: $(event.target).attr("name") == 'clubManagementState' ? true : false,
+			settingState: $(event.target).attr("name") == 'settingState' ? true : false
+		})
     }
 });
