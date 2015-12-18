@@ -31,7 +31,8 @@ var Layout =  React.createClass({
 			clubManagementState:false,
 			settingState:false,
 			termAndConditions:false,
-			aboutUs:false
+			aboutUs:false,
+            aboutUsDescription:'asdfas asdfas  sdfaa sa dfa sfas as asdf'
 		}
 	},
     render: function() {
@@ -78,7 +79,7 @@ var Layout =  React.createClass({
             	{this.state.aboutUs &&
                 <div> 
                 <h2>AboutUs</h2>
-                <AboutUs token={this.state.token} />
+                <AboutUs token={this.state.token} description={this.state.aboutUsDescription}/>
             	</div>}
             </div>
         );

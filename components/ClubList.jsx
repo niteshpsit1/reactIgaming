@@ -51,7 +51,6 @@ var ClubList = React.createClass({
 			});
 		}
 		else if($(event.target).attr("name") == "totalRides"){
-			console.log("totalRides",$(event.target).attr("name"));
 			this.setState({
 				totalRides: !this.state.totalRides
 			});
