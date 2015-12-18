@@ -1,26 +1,61 @@
 var AllUrl = {
-	
+	pageSize: 5
 }
 
 var ClubList = React.createClass({
-
+	getInitialState: function(){
+		return ({
+			club: {},
+			clubMembers: false,
+			clubDelete: true,
+			totalRides: false
+		});
+	},
+	componentWillMount: function(){
+		this.setState({
+			club: this.props.club
+		});
+	},
 	render: function () {
-		
+		var currentThis = this;
 		return (
-			<div><span>{this.props.club.name}:</span>
-				<span>{this.props.club.description}</span>
-				<span>&nbsp;<a onClick={this._onClick} href="#"><div ><b>see total Rides</b></div></a></span>
-				<span>&nbsp;<a onClick={this._onClick} href="#"><div id="ram"><b name="Nitesh">delete Ride</b></div></a></span>
-				<span>&nbsp;<a onClick={this._onClick} href="#"><div><b>see membses</b></div></a></span>
-				<ClubMembers ></ClubMembers>
+			<div>
+				{ 	this.state.clubDelete &&
+					<div><span>{this.props.club.name}:</span>
+					<span>{this.props.club.description}</span>
+					<span>&nbsp;<b><a onClick={this._onClick} href="#"><div name="totalRides">see total Rides</div></a></b></span>
+					{ 	this.state.totalRides &&
+						<ClubRidesList />}
+					<span>&nbsp;<b><a onClick={this._onClick} href="#"><div name="clubDelete">delete Ride</div></a></b></span>
+					<span>&nbsp;<b><a onClick={this._onClick} href="#"><div name="clubMembers">see membses</div></a></b></span>
+					
+					{	this.state.clubMembers &&
+						<ClubMembers />}
+
+					</div>
+				}
 			</div>
 		);
 	},
 	_onClick: function(event){
-			console.log("++++++++++=========",$(event.target).attr("name"));
-			var data = {}
-			data.id = $(event.target).attr("name")
-			//postCall()
+		var data = {}
+		data.id = $(event.target).attr("name")
+		if($(event.target).attr("name") == "clubDelete"){
+			this.setState({
+				clubDelete: false
+			});
+		}
+		else if($(event.target).attr("name") == "clubMembers"){
+			this.setState({
+				clubMembers: !this.state.clubMembers
+			});
+		}
+		else if($(event.target).attr("name") == "totalRides"){
+			console.log("totalRides",$(event.target).attr("name"));
+			this.setState({
+				totalRides: !this.state.totalRides
+			});
+		}
 	}
 });
 var postCall = function (url, data){

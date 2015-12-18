@@ -1,4 +1,5 @@
-var allUrl = {
+var allUrlData = {
+	pageSize: 2,
 	getALlClub:'http://45.33.86.141/wickedride/rest/service/getAllClubForGuest'
 }
 var ClubManagement = React.createClass({
@@ -6,12 +7,17 @@ var ClubManagement = React.createClass({
 		return {
 			clubs:[],
 			showClubMenberList:false,
-			ClubMembers:[]
+			ClubMembers:[],
+			pageNumber: 1
 		}
 	},
 	componentWillMount: function () {
 		var currentThis = this;
-		postCall(allUrl.getALlClub )
+		var requestData = {
+			pageSize:allUrlData.pageSize,
+			createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
+		};
+		postCall(allUrlData.getALlClub, requestData)
 		.then(function(clubs){
 			currentThis.setState({
 				clubs:clubs
@@ -29,8 +35,30 @@ var ClubManagement = React.createClass({
 			{this.state.clubs.map(function(club){
 				return <ClubList club={club}/>
 			})}
+			<div>&nbsp;<a href="#" onClick={this._onClick}><span name="prev">prev</span></a>&nbsp;&nbsp;<a href="#" onClick={this._onClick}><span name="next">next</span></a></div>
 			</div>
 		);
+	},
+	_onClick: function(event){
+		var currentThis = this;
+		if($(event.target).attr("name") == "prev"){
+			alert("can't see pvevious records");
+		}
+		else if($(event.target).attr("name") == "next"){
+			var requestData = {
+			pageSize:allUrlData.pageSize,
+			createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
+			};
+			postCall(allUrlData.getALlClub, requestData)
+			.then(function(clubs){
+				currentThis.setState({
+					clubs:clubs
+				});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});	
+		}
 	}
 });
 var postCall = function (url, data){
@@ -39,7 +67,7 @@ var postCall = function (url, data){
 		$.ajax({
 	        url: url,
 	        method: 'POST',
-	        data: $.param({"options":data}),
+	        data: data,
 	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 	        success: function (data, textStatus, jqXHR) {
 	        	
