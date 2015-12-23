@@ -1,6 +1,5 @@
 var allUrlData = {
-	pageSize: 2,
-	getALlClub:'http://45.33.86.141/wickedride/rest/service/getAllClubForGuest'
+	pageSize: 2
 }
 var ClubManagement = React.createClass({
 	getInitialState: function(){
@@ -14,13 +13,14 @@ var ClubManagement = React.createClass({
 	componentWillMount: function () {
 		var currentThis = this;
 		var requestData = {
-			pageSize:allUrlData.pageSize,
-			createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
+			token: this.props.token
+			//pageSize:config.pagination.pageSize,
+			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
-		postCall(allUrlData.getALlClub, requestData)
-		.then(function(clubs){
+		services.POST(config.url.getAllClub, requestData)
+		.then(function(data){
 			currentThis.setState({
-				clubs:clubs
+				clubs:data.response
 			});
 		})
 		.catch(function(error){
@@ -31,11 +31,15 @@ var ClubManagement = React.createClass({
 		var currentThis = this;
 		return (
 			<div>
-			<div><span>name</span><span>Description</span></div>
+			<div className="row">
+				<div className="well col-md-3">club name</div>
+				<div className="well col-md-3">creator name</div>
+				<div className="well col-md-3">Date</div>
+				<div className="well col-md-3">Time</div>
+			</div>
 			{this.state.clubs.map(function(club){
-				return <ClubList club={club}/>
+				return <ClubList token={currentThis.props.token} club={club}/>
 			})}
-			<div>&nbsp;<a href="#" onClick={this._onClick}><span name="prev">prev</span></a>&nbsp;&nbsp;<a href="#" onClick={this._onClick}><span name="next">next</span></a></div>
 			</div>
 		);
 	},
@@ -49,10 +53,10 @@ var ClubManagement = React.createClass({
 			pageSize:allUrlData.pageSize,
 			createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 			};
-			postCall(allUrlData.getALlClub, requestData)
-			.then(function(clubs){
+			services.POST(config.url.getAllClub, requestData)
+			.then(function(data){
 				currentThis.setState({
-					clubs:clubs
+					clubs:data.response
 				});
 			})
 			.catch(function(error){
@@ -61,25 +65,3 @@ var ClubManagement = React.createClass({
 		}
 	}
 });
-var postCall = function (url, data){
-	
-	return new RSVP.Promise(function(fulfill, reject) {
-		$.ajax({
-	        url: url,
-	        method: 'POST',
-	        data: data,
-	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	        success: function (data, textStatus, jqXHR) {
-	        	
-	            if( textStatus == "success") {
-	            	console.log("service in");
-	            	console.log(JSON.parse(jqXHR.responseText).response.result);
-	            	fulfill(JSON.parse(jqXHR.responseText).response.result);    
-	            }
-	      		else {
-	      			reject('error');
-	    		}
-	        }
-		});
-	});
-};

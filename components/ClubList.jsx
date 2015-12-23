@@ -7,8 +7,10 @@ var ClubList = React.createClass({
 		return ({
 			club: {},
 			clubMembers: false,
+			clubMembersList:[],
 			clubDelete: true,
-			totalRides: false
+			totalRides: false,
+			clubRideList:[]
 		});
 	},
 	componentWillMount: function(){
@@ -18,26 +20,57 @@ var ClubList = React.createClass({
 	},
 	render: function () {
 		var currentThis = this;
+		var time = Date.parse(this.props.club.date);
 		return (
 			<div>
 				{ 	this.state.clubDelete &&
-					<div><span>{this.props.club.name}:</span>
-					<span>{this.props.club.description}</span>
-					<span>&nbsp;<b><a onClick={this._onClick} href="#"><div name="totalRides">see total Rides</div></a></b></span>
+					<div>
+					<div className="row">
+					<div className="well col-md-2">{this.props.club.clubName}:</div>
+					<div className="well col-md-2">{this.props.club.creatorName}</div>
+					<div className="well col-md-2">{this.props.club.date}</div>
+					<div className="well col-md-2">{this.props.club.time}</div>
+					<div className="well col-md-2"><a onClick={this._onClick} href="#"><div name="totalRides">see total Rides</div></a></div>
+					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubDelete">delete Ride</div></a></div>
+					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubMembers">see membses</div></a></div>
+				
 					{ 	this.state.totalRides &&
-						<ClubRidesList />}
-					<span>&nbsp;<b><a onClick={this._onClick} href="#"><div name="clubDelete">delete Ride</div></a></b></span>
-					<span>&nbsp;<b><a onClick={this._onClick} href="#"><div name="clubMembers">see membses</div></a></b></span>
-					
-					{	this.state.clubMembers &&
-						<ClubMembers />}
+						<div>
+						<div className="row">
+							<div className="well col-md-3">Ride Name</div>
+							<div className="well col-md-3">Description</div>
+							<div className="well col-md-2">start Date</div>
+							<div className="well col-md-2">state Time</div>
+							<div className="well col-md-2">Members</div>
+						</div>
+						{this.state.clubMembersList.map(function(member){
+							return <ClubRidesList ride={this.state.clubRideList}/>
+						})}
+						</div>
+					}
 
+					{	this.state.clubMembers &&
+						<div>
+						<div className="row">
+							<div className="well col-md-3">User Name</div>
+							<div className="well col-md-3">Designation</div>
+							<div className="well col-md-3">Awards</div>
+							<div className="well col-md-3">Number of clubs joined</div>
+						</div>
+						{this.state.clubMembersList.map(function(member){
+							return <ClubMembers member={member}/>
+						})}
+						</div>
+					}
+
+					</div>
 					</div>
 				}
 			</div>
 		);
 	},
 	_onClick: function(event){
+		var currentThis = this;
 		var data = {}
 		data.id = $(event.target).attr("name")
 		if($(event.target).attr("name") == "clubDelete"){
@@ -46,37 +79,53 @@ var ClubList = React.createClass({
 			});
 		}
 		else if($(event.target).attr("name") == "clubMembers"){
-			this.setState({
-				clubMembers: !this.state.clubMembers
-			});
+			
+			if(!this.state.clubMembers){
+				var requestData = {}
+				requestData.token = this.props.token;
+				requestData.clubID = this.props.club.clubId; 
+				services.POST(config.url.getClubMembers, requestData)
+				.then(function(data){
+					currentThis.setState({
+						clubMembers: !currentThis.state.clubMembers,
+						clubMembersList: data.response,
+						totalRides:false
+					});
+				})
+				.catch(function(error){
+					console.log("error",error)
+				});
+			}
+			else{
+				this.setState({
+						clubMembers: !this.state.clubMembers,
+						totalRides:false
+				});
+			}
 		}
 		else if($(event.target).attr("name") == "totalRides"){
-			console.log("totalRides",$(event.target).attr("name"));
-			this.setState({
-				totalRides: !this.state.totalRides
-			});
+			if(!this.state.totalRides){
+				var requestData = {}
+				requestData.token = this.props.token;
+				requestData.clubID = this.props.club.clubId; 
+				services.POST(config.url.getClubMembers, requestData)
+				.then(function(data){
+					currentThis.setState({
+						clubMembers: false,
+						totalRides: true,
+						clubRideList:data.response
+					})
+				})
+				.catch(function(error){
+					console.log("error",error)
+				});
+			}
+			else{
+				this.setState({
+						clubMembers: false,
+						totalRides:false
+				});
+			}
 		}
 	}
 });
-var postCall = function (url, data){
-	
-	return new RSVP.Promise(function(fulfill, reject) {
-		$.ajax({
-	        url: url,
-	        method: 'POST',
-	        data: $.param({"options":data}),
-	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	        success: function (data, textStatus, jqXHR) {
-	        	
-	            if( textStatus == "success") {
-	            	console.log("service in");
-	            	console.log(JSON.parse(jqXHR.responseText).response.result);
-	            	fulfill(JSON.parse(jqXHR.responseText).response.result);    
-	            }
-	      		else {
-	      			reject('error');
-	    		}
-	        }
-		});
-	});
-};

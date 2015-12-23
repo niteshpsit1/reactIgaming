@@ -1,27 +1,8 @@
 var userCredentials = {
-	username: "guest",
-	password: "guest"
+	username: "smith.gaur.100@gmail.com",
+	password: "hrhk@super"
 };
-var url = 'http://45.33.86.141/wickedride/rest/connect';
-var serviceCall = function (url, data){
-	return new RSVP.Promise(function(fulfill, reject) {
-		var responseData = {};
-		$.ajax({
-	        url: url,
-	        method: 'POST',
-	        data: $.param({"options":data}),
-	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-	        success: function (data, textStatus, jqXHR) {
-	            if( textStatus == "success") {
-	                fulfill(JSON.parse(jqXHR.responseText).response.token);
-	            }
-	            else {
-	      			reject('error');
-	    		}
-	        }
-		});
-	});
-};
+
 var Layout =  React.createClass({
 	getInitialState: function (){
 		return {
@@ -38,45 +19,46 @@ var Layout =  React.createClass({
         return (
         	<div>
         		<h2>Super Admin {this.state.token}</h2>
-        		<a onClick={this._onClick} href="#"><div name="homeState">Home</div></a>
-        		<a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a>
-        		<a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a>
-        		<a onClick={this._onClick} href="#"><div name="termAndConditions">TermAndConditions</div></a>
-        		<a onClick={this._onClick} href="#"><div name="aboutUs">AboutUs</div></a>
-        		<a onClick={this._onClick} href="#"><div name="settingState">setting</div></a>
-                
+                <div className="row">
+        		<a onClick={this._onClick} href="#"><div className="well col-md-2" name="homeState">Home</div></a>
+        		<a onClick={this._onClick} href="#"><div className="well col-md-2" name="userManagementState">User Management</div></a>
+        		<a onClick={this._onClick} href="#"><div className="well col-md-2" name="clubManagementState">Club Management</div></a>
+        		<a onClick={this._onClick} href="#"><div className="well col-md-2" name="termAndConditions">TermAndConditions</div></a>
+        		<a onClick={this._onClick} href="#"><div className="well col-md-2" name="aboutUs">AboutUs</div></a>
+        		<a onClick={this._onClick} href="#"><div className="well col-md-2" name="settingState">setting</div></a>
+                </div>
                 {this.state.homeState && 
-                <div>
+                <div className='bg-info'>
                 <h2>Messages</h2> 
                 <MessagesFromGroupAdmin token={this.state.token} />
             	</div>}
 
                 {this.state.userManagementState && 
-                <div>
+                <div className='bg-info'>
                 <h2>User Management</h2>
                 <UserManagement token={this.state.token} />
             	</div>}
 
                 {this.state.clubManagementState &&
-                <div> 
+                <div className='bg-info'> 
                 <h2>Club Management</h2>
                 <ClubManagement token={this.state.token}  />
             	</div>}
 
                 {this.state.settingState &&
-                <div> 
+                <div className='bg-info'> 
                 <h2>Setting</h2>
                 <SettingComponent token={this.state.token} />
             	</div>}
 
             	{this.state.termAndConditions &&
-                <div> 
+                <div className='bg-info'> 
                 <h2>Setting</h2>
                 <TermAndConditions token={this.state.token} />
             	</div>}
 
             	{this.state.aboutUs &&
-                <div> 
+                <div className='bg-info'> 
                 <h2>AboutUs</h2>
                 <AboutUs token={this.state.token} />
             	</div>}
@@ -85,10 +67,10 @@ var Layout =  React.createClass({
     },
     componentDidMount: function(){
     	currentthis = this;
-		serviceCall(url, userCredentials)
+		services.superAdminLogin(config.url.adminLogin, userCredentials)
 		.then(function(data){
 			currentthis.setState({
-				token: data
+				token: data.response.token
 			});
 		})
 		.catch(function(error){
