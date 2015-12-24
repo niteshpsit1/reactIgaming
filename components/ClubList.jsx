@@ -31,7 +31,7 @@ var ClubList = React.createClass({
 					<div className="well col-md-2">{this.props.club.date}</div>
 					<div className="well col-md-2">{this.props.club.time}</div>
 					<div className="well col-md-2"><a onClick={this._onClick} href="#"><div name="totalRides">see total Rides</div></a></div>
-					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubDelete">delete Ride</div></a></div>
+					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubDelete">Delete Club</div></a></div>
 					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubMembers">see membses</div></a></div>
 				
 					{ 	this.state.totalRides &&
