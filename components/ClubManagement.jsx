@@ -32,7 +32,7 @@ var ClubManagement = React.createClass({
 		return (
 			<div>
 			<div className="row">
-				<div className="well col-md-3">club name</div>
+				<div className="well col-md-3">club Name</div>
 				<div className="well col-md-3">creator name</div>
 				<div className="well col-md-3">Date</div>
 				<div className="well col-md-3">Time</div>

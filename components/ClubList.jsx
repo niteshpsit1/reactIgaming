@@ -43,8 +43,8 @@ var ClubList = React.createClass({
 							<div className="well col-md-2">state Time</div>
 							<div className="well col-md-2">Members</div>
 						</div>
-						{this.state.clubMembersList.map(function(member){
-							return <ClubRidesList ride={this.state.clubRideList}/>
+						{this.state.clubRideList.map(function(ride){
+							return <ClubRidesList ride={ride}/>
 						})}
 						</div>
 					}
@@ -70,6 +70,7 @@ var ClubList = React.createClass({
 		);
 	},
 	_onClick: function(event){
+
 		var currentThis = this;
 		var data = {}
 		data.id = $(event.target).attr("name")
@@ -104,16 +105,17 @@ var ClubList = React.createClass({
 			}
 		}
 		else if($(event.target).attr("name") == "totalRides"){
+			
 			if(!this.state.totalRides){
 				var requestData = {}
 				requestData.token = this.props.token;
 				requestData.clubID = this.props.club.clubId; 
-				services.POST(config.url.getClubMembers, requestData)
+				services.POST(config.url.getClubRides, requestData)
 				.then(function(data){
 					currentThis.setState({
 						clubMembers: false,
 						totalRides: true,
-						clubRideList:data.response
+						clubRideList:data.response.result
 					})
 				})
 				.catch(function(error){
@@ -122,8 +124,8 @@ var ClubList = React.createClass({
 			}
 			else{
 				this.setState({
-						clubMembers: false,
-						totalRides:false
+					clubMembers: false,
+					totalRides:false
 				});
 			}
 		}
