@@ -21,7 +21,7 @@ var PasswordSetting = React.createClass({
 				<label>Confirm Password</label>
 				<input type="password" name="confirnPassword" className="form-control" onChange={this._onChange}/>
 			</div>
-			<div><button type="button" class="btn btn-info" onClick={this._onClick}>Info</button></div>
+			<div><button type="button" class="btn btn-info" onClick={this._onClick}>CHANGE</button></div>
 			</div>
 		);
 	},

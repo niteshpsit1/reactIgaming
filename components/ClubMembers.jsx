@@ -1,7 +1,6 @@
 var ClubMembers = React.createClass({
 
 	render: function () {
-		console.log("ClubMembers");
 		return (
 			<div>
 				<div className="row">

@@ -2,7 +2,7 @@ var SettingComponent = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<div><h6>Password Setting{this.props.userCredentials.userName} {this.props.userCredentials.emailId}</h6></div>
+				<div><h6>Password Setting</h6></div>
 				<div>
 					<PasswordSetting token={this.props.token}/>
 				</div>

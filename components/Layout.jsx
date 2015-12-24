@@ -70,7 +70,6 @@ var Layout =  React.createClass({
     	currentthis = this;
 		services.superAdminLogin(config.url.adminLogin, userCredentials)
 		.then(function(data){
-            console.log("====>>>>>>>",data);
 			currentthis.setState({
 				token: data.response.token,
                 userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
