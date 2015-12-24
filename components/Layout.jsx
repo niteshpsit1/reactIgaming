@@ -7,6 +7,7 @@ var Layout =  React.createClass({
 	getInitialState: function (){
 		return {
 			token: "ok",
+            userCredentials:{},
 			homeState:true,
 			userManagementState:false,
 			clubManagementState:false,
@@ -47,8 +48,8 @@ var Layout =  React.createClass({
 
                 {this.state.settingState &&
                 <div className='bg-info'> 
-                <h2>Setting</h2>
-                <SettingComponent token={this.state.token} />
+                <h2>General Setting</h2>
+                <SettingComponent token={this.state.token} userCredentials={this.state.userCredentials}/>
             	</div>}
 
             	{this.state.termAndConditions &&
@@ -69,8 +70,10 @@ var Layout =  React.createClass({
     	currentthis = this;
 		services.superAdminLogin(config.url.adminLogin, userCredentials)
 		.then(function(data){
+            console.log("====>>>>>>>",data);
 			currentthis.setState({
-				token: data.response.token
+				token: data.response.token,
+                userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
 			});
 		})
 		.catch(function(error){
