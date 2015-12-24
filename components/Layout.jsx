@@ -53,7 +53,7 @@ var Layout =  React.createClass({
 
             	{this.state.termAndConditions &&
                 <div className='bg-info'> 
-                <h2>Setting</h2>
+                <h2>Term and Condition</h2>
                 <TermAndConditions token={this.state.token} />
             	</div>}
 
