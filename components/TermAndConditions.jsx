@@ -12,9 +12,14 @@ var TermAndConditions = React.createClass({
 		};
 		services.POST(config.url.getAllClub, requestData)
 		.then(function(data){
-			currentThis.setState({
-				//termAndConditionMessage:data.response.message
-			});
+			setTimeout(function() {
+				currentThis.setState({
+					//termAndConditionMessage:data.response.message
+				})	
+			}, 0);
+			setTimeout(function() {
+				$('#termAndConditionMessage').html((JSON.stringify(currentThis.state.termAndConditionMessage)).replace(/^\s+|\s+$/g, ''));
+			}, 0);
 		})
 		.catch(function(error){
 			console.log("====catch",error);	
@@ -26,33 +31,40 @@ var TermAndConditions = React.createClass({
 				{	!this.state.edit	&&
 					<div>
 					<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
-					<p>{this.state.termAndConditionMessage}</p>
+					<div id="termAndConditionMessage"></div>
 					</div>}
 
 				{	this.state.edit	&&
 					<div>
-					<textarea rows="10" cols="15" name="aboutUsMessage" onChange={this._onChange} value={this.state.termAndConditionMessage}></textarea>
+					<textarea rows="10" cols="15" name="termAndConditionMessage"  value={this.state.termAndConditionMessage}></textarea>
 					<button type="button" name="change" class="btn btn-danger" onClick={this._onClick}>CHANGE</button>
 					</div>}
 			
 			</div>
 		);
 	},
-	_onChange: function(event){
-		this.setState({
-			termAndConditionMessage:event.target.value
-		})
-	},
 	_onClick: function(event){
+		var currentThis = this;
 		if($(event.target).attr("name") == "edit"){
-			this.setState({
-				edit:true
-			})
+			setTimeout(function() {
+				currentThis.setState({
+					edit:true
+				})	
+			}, 0);
+			setTimeout(function() {
+				CKEDITOR.replace( 'termAndConditionMessage' )
+			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-			this.setState({
-				edit:false
-			})
+			setTimeout(function() {
+				currentThis.setState({
+					termAndConditionMessage:CKEDITOR.instances.termAndConditionMessage.getData(),
+					edit:false
+				})	
+			}, 0);
+			setTimeout(function() {
+				$('#termAndConditionMessage').html(JSON.stringify(currentThis.state.termAndConditionMessage).replace(/(\r\n|\n|\r)/gm," "));
+			}, 0);
 		}
 	}
 });

@@ -58,7 +58,7 @@ var AboutUs = React.createClass({
 			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-			console.log("asdfsd");
+			
 			setTimeout(function() {
 				currentThis.setState({
 					aboutUsMessage:CKEDITOR.instances.aboutUsMessage.getData(),
