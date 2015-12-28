@@ -39,6 +39,9 @@ var services = {
 		      		else {
 		      			reject('error');
 		    		}
+		        },
+		        error: function (xhr,status,error){
+	      			reject(JSON.parse(xhr.responseText));
 		        }
 			});
 		});
