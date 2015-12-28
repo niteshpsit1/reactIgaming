@@ -90,64 +90,72 @@ var Layout =  React.createClass({
         );
     },
     componentDidMount: function(){
-    	
-		/*services.superAdminLogin(config.url.adminLogin, userCredentials)
-		.then(function(data){
-			currentthis.setState({
-				token: data.response.token,
-                userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
-			});
-		})
-		.catch(function(error){
-			console.log(error);
-		});  */  	
+    	 	
     },
     _onChange: function(event){
         var currentThis = this
         if(event.target.name == "username"){
             currentThis.setState({
-                username: event.target.value
+                username: (event.target.value).trim()
             });
         }
         else if(event.target.name == "password"){
             currentThis.setState({
-                password: event.target.value
+                password: (event.target.value).trim()
             });
         }
     },
     _onClick: function(event){
         var currentThis = this;
     	if(event.target.name == "login"){
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var requestData = {};
             requestData.username = this.state.username;
             requestData.password = this.state.password;
-            services.superAdminLogin(config.url.adminLogin, requestData)
-            .then(function(data){
-                localStorage.setItem('wikedrideSuperAdminIsLogin', JSON.stringify({
-                    token:data.response.token,
-                    userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
-                }));
-                setTimeout(function() {
-                    currentThis.setState({
-                        token: data.response.token,
+            if( this.state.username != "" && this.state.password != "" && filter.test(this.state.username)){
+                services.superAdminLogin(config.url.adminLogin, requestData)
+                .then(function(data){
+                    localStorage.setItem('wikedrideSuperAdminIsLogin', JSON.stringify({
+                        token:data.response.token,
                         userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
-                    });
-                }, 0);
-                setTimeout(function() {
+                    }));
+                    setTimeout(function() {
+                        currentThis.setState({
+                            token: data.response.token,
+                            userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
+                        });
+                    }, 0);
+                    setTimeout(function() {
+                        currentThis.setState({
+                            isLogin: true
+                        });
+                    }, 0);
+                })
+                .catch(function(error){
+                    console.log("======error",error);
                     currentThis.setState({
-                        isLogin: true
+                        loginError: error.response.message
                     });
-                }, 0);
-            })
-            .catch(function(error){
-                console.log("======error",error);
+                });  
+            }
+            else if(this.state.username == "" || this.state.password == ""){
                 currentThis.setState({
-                    loginError: error.response.message
+                    loginError: "username and password can not be blank"
                 });
-            });    
+            }
+            else if(!filter.test(this.state.username)){
+                currentThis.setState({
+                    loginError: "insert valid username"
+                });
+            } 
+            else{
+                currentThis.setState({
+                    loginError: "something goes wrong"
+                });
+            }
         }
         else if($(event.target).attr("name") == "logout"){
-            
+
             localStorage.removeItem("wikedrideSuperAdminIsLogin");
             currentThis.setState({
                 loginError: "",
