@@ -12,8 +12,11 @@ var services = {
 		                fulfill(JSON.parse(jqXHR.responseText));
 		            }
 		            else {
-		      			reject('error');
+		      			reject(JSON.parse(jqXHR.responseText));
 		    		}
+		        },
+		        error: function (xhr,status,error){
+	      			reject(JSON.parse(xhr.responseText));
 		        }
 			});
 		});
