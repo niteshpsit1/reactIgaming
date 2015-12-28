@@ -58,7 +58,7 @@ var Layout =  React.createClass({
     
                         {this.state.userManagementState && 
                         <div className='bg-info'>
-                        <h2>User Management</h2>
+                        <h2>All User Management</h2>
                         <UserManagement token={this.state.token} />
                         </div>}
     

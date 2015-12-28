@@ -4,7 +4,8 @@ var config = {
 		adminLogin:baseUrl+'/rest/connect',
 		getAllClub:baseUrl+'/rest/service/getClubListForSuperAdmin',
 		getClubMembers:baseUrl+'/rest/service/getClubMembersListForSuperAdmin',
-		getClubRides:baseUrl+'/rest/service/rideList'
+		getClubRides:baseUrl+'/rest/service/rideList',
+		getAllUser:baseUrl+'/rest/service/userList'
 	},
 	pagination:{
 		pageSize:5
