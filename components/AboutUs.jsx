@@ -1,7 +1,7 @@
 var AboutUs = React.createClass({
 	getInitialState: function (){
 		return {
-			aboutUsMessage:"ram",
+			aboutUsMessage:'<p>ram \n sadf n</p>',
 			edit:false
 		}
 	},
@@ -12,9 +12,14 @@ var AboutUs = React.createClass({
 		};
 		services.POST(config.url.getAllClub, requestData)
 		.then(function(data){
-			currentThis.setState({
-				//aboutUsMessage:data.response.message
-			});
+			setTimeout(function() {
+				currentThis.setState({
+					//aboutUsMessage:data.response.message
+				})	
+			}, 0);
+			setTimeout(function() {
+				$('#aboutUsMessage').html((JSON.stringify(currentThis.state.aboutUsMessage)).replace(/^\s+|\s+$/g, ''));
+			}, 0);
 		})
 		.catch(function(error){
 			console.log("====catch",error);	
@@ -26,33 +31,43 @@ var AboutUs = React.createClass({
 				{	!this.state.edit	&&
 					<div>
 					<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
-					<p>{this.state.aboutUsMessage}</p>
+					<div id="aboutUsMessage"></div>
 					</div>}
 
 				{	this.state.edit	&&
 					<div>
-					<textarea rows="10" cols="15" name="aboutUsMessage" onChange={this._onChange} value={this.state.aboutUsMessage}></textarea>
-					<button type="button" name="change" class="btn btn-danger" onClick={this._onClick}>CHANGE</button>
+					<textarea rows="10"  cols="15" name="aboutUsMessage"  value={this.state.aboutUsMessage}></textarea>
+					<button type="button" name="change" class="btn btn-danger"  onClick={this._onClick}>CHANGE</button>
 					</div>}
 			
 			</div>
 		);
 	},
-	_onChange: function(event){
-		this.setState({
-			aboutUsMessage:event.target.value
-		})
-	},
+	
 	_onClick: function(event){
+		console.log("asdfsd");
+		var currentThis = this;
 		if($(event.target).attr("name") == "edit"){
-			this.setState({
-				edit:true
-			})
+			setTimeout(function() {
+				currentThis.setState({
+					edit:true
+				})	
+			}, 0);
+			setTimeout(function() {
+				CKEDITOR.replace( 'aboutUsMessage' );
+			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-			this.setState({
-				edit:false
-			})
+			console.log("asdfsd");
+			setTimeout(function() {
+				currentThis.setState({
+					aboutUsMessage:CKEDITOR.instances.aboutUsMessage.getData(),
+					edit:false
+				})	
+			}, 0);
+			setTimeout(function() {
+				$('#aboutUsMessage').html(JSON.stringify(currentThis.state.aboutUsMessage).replace(/(\r\n|\n|\r)/gm," "));
+			}, 0);
 		}
 	}
 });

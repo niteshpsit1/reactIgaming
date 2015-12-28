@@ -75,9 +75,11 @@ var ClubList = React.createClass({
 		var data = {}
 		data.id = $(event.target).attr("name")
 		if($(event.target).attr("name") == "clubDelete"){
-			this.setState({
-				clubDelete: false
-			});
+			if(confirm("club will detele permanently") == true) {
+				this.setState({
+					clubDelete: false
+				})
+			}
 		}
 		else if($(event.target).attr("name") == "clubMembers"){
 			
@@ -99,8 +101,8 @@ var ClubList = React.createClass({
 			}
 			else{
 				this.setState({
-						clubMembers: !this.state.clubMembers,
-						totalRides:false
+					clubMembers: !this.state.clubMembers,
+					totalRides:false
 				});
 			}
 		}
