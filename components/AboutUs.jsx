@@ -10,11 +10,11 @@ var AboutUs = React.createClass({
 		var requestData = {
 			token: this.props.token
 		};
-		services.POST(config.url.getAllClub, requestData)
+		services.POST(config.url.getAboutUs, requestData)
 		.then(function(data){
 			setTimeout(function() {
 				currentThis.setState({
-					//aboutUsMessage:data.response.message
+					aboutUsMessage:data.response.htmlText
 				})	
 			}, 0);
 			setTimeout(function() {
@@ -58,16 +58,26 @@ var AboutUs = React.createClass({
 			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-			
-			setTimeout(function() {
-				currentThis.setState({
-					aboutUsMessage:CKEDITOR.instances.aboutUsMessage.getData(),
-					edit:false
-				})	
-			}, 0);
-			setTimeout(function() {
-				$('#aboutUsMessage').html(JSON.stringify(currentThis.state.aboutUsMessage).replace(/(\r\n|\n|\r)/gm," "));
-			}, 0);
+			var requestData = {};
+			requestData.token = this.props.token;
+			requestData.htmlText = CKEDITOR.instances.aboutUsMessage.getData();
+			services.POST(config.url.postAboutUs, requestData)
+			.then(function(data){
+				if(data.response.flag){
+					setTimeout(function() {
+						currentThis.setState({
+							aboutUsMessage:CKEDITOR.instances.aboutUsMessage.getData(),
+							edit:false
+						})	
+					}, 0);
+					setTimeout(function() {
+						$('#aboutUsMessage').html(JSON.stringify(currentThis.state.aboutUsMessage).replace(/(\r\n|\n|\r)/gm," "));
+					}, 0);
+				}
+			})
+			.catch(function(error){
+
+			})
 		}
 	}
 });

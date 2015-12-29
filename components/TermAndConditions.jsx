@@ -10,11 +10,11 @@ var TermAndConditions = React.createClass({
 		var requestData = {
 			token: this.props.token
 		};
-		services.POST(config.url.getAllClub, requestData)
+		services.POST(config.url.getTermAndConditions, requestData)
 		.then(function(data){
 			setTimeout(function() {
 				currentThis.setState({
-					//termAndConditionMessage:data.response.message
+					termAndConditionMessage:data.response.tncText
 				})	
 			}, 0);
 			setTimeout(function() {
@@ -56,15 +56,26 @@ var TermAndConditions = React.createClass({
 			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-			setTimeout(function() {
-				currentThis.setState({
-					termAndConditionMessage:CKEDITOR.instances.termAndConditionMessage.getData(),
-					edit:false
-				})	
-			}, 0);
-			setTimeout(function() {
-				$('#termAndConditionMessage').html(JSON.stringify(currentThis.state.termAndConditionMessage).replace(/(\r\n|\n|\r)/gm," "));
-			}, 0);
+			var requestData = {};
+			requestData.token = this.props.token
+			requestData.tncText = CKEDITOR.instances.termAndConditionMessage.getData();
+			services.POST(config.url.postTermAndConditions, requestData)
+			.then(function(data){
+				if(data.response.flag){
+					setTimeout(function() {
+					currentThis.setState({
+						termAndConditionMessage:CKEDITOR.instances.termAndConditionMessage.getData(),
+						edit:false
+					})	
+					}, 0);
+					setTimeout(function() {
+						$('#termAndConditionMessage').html(JSON.stringify(currentThis.state.termAndConditionMessage).replace(/(\r\n|\n|\r)/gm," "));
+					}, 0);
+				}
+			})
+			.catch(function(error){
+				console.log(error);
+			})
 		}
 	}
 });
