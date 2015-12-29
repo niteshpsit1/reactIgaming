@@ -1,7 +1,10 @@
 var UserManagement = React.createClass({
 	getInitialState: function (){
 		return {
-			userList:[]
+			userList:[],
+			clubList:[{name:"ram",_id:341},
+					{name:"ram",_id:341}],
+			designations:[{name:"ram1"},{name:"ram2"}]
 		}
 	},
 	componentDidMount: function(){
@@ -35,11 +38,19 @@ var UserManagement = React.createClass({
 					<form className="form-inline">
 					  <div className="form-group">
 					    <label>joined Club</label>
-					    <input className="form-control"/>
+					    <select  className="form-control">
+						    {this.state.clubList.map(function(club){
+						    	return <SelectOption name={club.name} _id={club._id}/>
+						    })}
+					    </select>
 					  </div>
 					  <div className="form-group">
 					    <label>Designation</label>
-					    <input className="form-control"/>
+					    <select  className="form-control">
+						    {this.state.designations.map(function(designation){
+						    	return <SelectOption name={designation} />
+						    })}
+					    </select>
 					  </div>
 					</form>
 					<button className="btn btn-default">FILTER</button>
