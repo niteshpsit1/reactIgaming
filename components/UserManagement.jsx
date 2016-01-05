@@ -24,49 +24,20 @@ var UserManagement = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<div>
-					<form className="form-inline">
-					  <div className="form-group">
-					    <label>Name</label>
-					    <input className="form-control"/>
-					  </div>
-					  <div className="form-group">
-					    <label>Email</label>
-					    <input className="form-control"/>
-					  </div>
-					</form>
-					<form className="form-inline">
-					  <div className="form-group">
-					    <label>joined Club</label>
-					    <select  className="form-control">
-						    {this.state.clubList.map(function(club){
-						    	return <SelectOption name={club.name} _id={club._id}/>
-						    })}
-					    </select>
-					  </div>
-					  <div className="form-group">
-					    <label>Designation</label>
-					    <select  className="form-control">
-						    {this.state.designations.map(function(designation){
-						    	return <SelectOption name={designation} />
-						    })}
-					    </select>
-					  </div>
-					</form>
-					<button className="btn btn-default">FILTER</button>
+				<div className="content">
+					<table cellspacing="0" cellpadding="25">
+						<th><p>User Name</p></th>
+						<th>Email</th>
+						<th>Number</th>
+						<th>Number of Clubs Joined</th>
+						<th></th>
+						<tbody>
+							{this.state.userList.map(function(user){
+		  						return <UserList user={user}/> 
+		  					})}
+		  				</tbody>
+					</table>
 				</div>
-				<div className="row">
-					<div className="well col-md-2">User Name</div>
-					<div className="well col-md-2">Email</div>
-					<div className="well col-md-2">Number</div>
-					<div className="well col-md-2">Number of clubs joined</div>
-					<div className="well col-md-2"></div>
-					<div className="well col-md-2"></div>
-				</div>
-
-		  		{this.state.userList.map(function(user){
-		  			return <UserList user={user}/> 
-		  		})}
 			</div>
 		);
 	},

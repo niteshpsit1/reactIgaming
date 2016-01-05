@@ -40,51 +40,76 @@ var Layout =  React.createClass({
                     </div>}
             	{  this.state.isLogin &&
                     <div>
-                        <h2>Super Admin {this.state.token}</h2>
-                        <div className="row">
-                        <a onClick={this._onClick} href="#"><div className="well col-md-2" name="homeState">Home</div></a>
-                        <a onClick={this._onClick} href="#"><div className="well col-md-2" name="userManagementState">User Management</div></a>
-                        <a onClick={this._onClick} href="#"><div className="well col-md-2" name="clubManagementState">Club Management</div></a>
-                        <a onClick={this._onClick} href="#"><div className="well col-md-2" name="termAndConditions">TermAndConditions</div></a>
-                        <a onClick={this._onClick} href="#"><div className="well col-md-2" name="aboutUs">AboutUs</div></a>
-                        <a onClick={this._onClick} href="#"><div className="well col-md-1" name="settingState">setting</div></a>
-                        <a onClick={this._onClick} href="#"><div className="well col-md-1" name="logout">logout</div></a>
+                        <header>
+                            <div className="logo-wrapper">
+                                <a href="#">
+                                    <img src="images/wicked-ride-logo.png"/>
+                                </a>
+                            </div>
+                            <div className="admin-details">
+                                <p>Admin Name <span>{this.state.userCredentials.username}</span></p>
+                                <p className="account-img"><img src="images/bg_imgs/user-icon1.jpg"/></p>
+                                <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
+                            </div>
+                        </header>
+                        <div className="wrapper">
+                            <aside>
+                                <ul className="navigation clearfix">
+                                    <li className="active"><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
+                                    <li><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
+                                    <li><a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a></li>
+                                    <li><a onClick={this._onClick} href="#"><div name="aboutUs">About Us</div></a></li>
+                                    <li><a onClick={this._onClick} href="#"><div name="termAndConditions">Term & Conditions</div></a></li>
+                                    <li><a onClick={this._onClick} href="#"><div name="settingState">Settings</div></a></li>
+                                </ul>
+                            </aside>
+                            {this.state.homeState && 
+                            <div className='bg-info'>
+                            <h2>Messages</h2> 
+                            <MessagesFromGroupAdmin token={this.state.token} />
+                            </div>}
+        
+                            {this.state.userManagementState && 
+                            <div className="main user-mgt-page common-table">
+                                <div className="main-content">
+                                    <div className="page-title">
+                                        <h1>All Users Details</h1>
+                                        <div className="filter-block">
+                                            <a href="#"></a>
+                                        </div>
+                                    </div>
+                                    <UserManagement token={this.state.token} />
+                                </div>
+                            </div>}
+        
+                            {this.state.clubManagementState &&
+                            <div className='bg-info'> 
+                            <h2>Club Management</h2>
+                            <ClubManagement token={this.state.token}  />
+                            </div>}
+        
+                            {this.state.settingState &&
+                            <div className="main settings-page">
+                                <div className="main-content"> 
+                                    <div className="page-title">
+                                        <h1>General Settings</h1>
+                                    </div>
+                                    <SettingComponent token={this.state.token} userCredentials={this.state.userCredentials}/>
+                                </div>
+                            </div>}
+        
+                            {this.state.termAndConditions &&
+                            <div className='bg-info'> 
+                            <h2>Term and Condition</h2>
+                            <TermAndConditions token={this.state.token} />
+                            </div>}
+        
+                            {this.state.aboutUs &&
+                            <div className='bg-info'> 
+                            <h2>About Us</h2>
+                            <AboutUs token={this.state.token} />
+                            </div>}
                         </div>
-                        {this.state.homeState && 
-                        <div className='bg-info'>
-                        <h2>Messages</h2> 
-                        <MessagesFromGroupAdmin token={this.state.token} />
-                        </div>}
-    
-                        {this.state.userManagementState && 
-                        <div className='bg-info'>
-                        <h2>All User Management</h2>
-                        <UserManagement token={this.state.token} />
-                        </div>}
-    
-                        {this.state.clubManagementState &&
-                        <div className='bg-info'> 
-                        <h2>Club Management</h2>
-                        <ClubManagement token={this.state.token}  />
-                        </div>}
-    
-                        {this.state.settingState &&
-                        <div className='bg-info'> 
-                        <h2>General Setting</h2>
-                        <SettingComponent token={this.state.token} userCredentials={this.state.userCredentials}/>
-                        </div>}
-    
-                        {this.state.termAndConditions &&
-                        <div className='bg-info'> 
-                        <h2>Term and Condition</h2>
-                        <TermAndConditions token={this.state.token} />
-                        </div>}
-    
-                        {this.state.aboutUs &&
-                        <div className='bg-info'> 
-                        <h2>About Us</h2>
-                        <AboutUs token={this.state.token} />
-                        </div>}
                     </div>}
             </div>    
         );
@@ -107,6 +132,7 @@ var Layout =  React.createClass({
     },
     _onClick: function(event){
         var currentThis = this;
+        console.log("userCredentials",this.state.userCredentials);
     	if(event.target.name == "login"){
             var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var requestData = {};
@@ -126,6 +152,7 @@ var Layout =  React.createClass({
                         });
                     }, 0);
                     setTimeout(function() {
+                        console.log("userCredentials=====",currentThis.state.userCredentials);
                         currentThis.setState({
                             isLogin: true
                         });
@@ -155,7 +182,6 @@ var Layout =  React.createClass({
             }
         }
         else if($(event.target).attr("name") == "logout"){
-
             localStorage.removeItem("wikedrideSuperAdminIsLogin");
             currentThis.setState({
                 loginError: "",

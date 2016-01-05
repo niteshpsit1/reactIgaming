@@ -7,16 +7,17 @@ var PersonalSetting = React.createClass({
 	},
 	render: function(){
 		return (
-			<div>
-			<div className="form-group">
-				<label>Name:</label>
-				<input type="text" name="userName" className="form-control" onChange={this._onChange}/>
-			</div>
-			<div className="form-group">
-				<label>Email:</label>
-				<input type="text" name="email" className="form-control" onChange={this._onChange}/>
-			</div>
-			<div><button type="button" class="btn btn-info" onClick={this._onClick}>CHANGE</button></div>
+			<div className="PI-block">
+				<div className="page-title">
+					<h1>Personal Information</h1>
+					<div className="filter-block edit">
+						<a href="">Edit</a>
+					</div>
+					</div>
+					<form>
+					<div className="f1"><label>Name</label><p>{this.props.userCredentials.username}</p></div>
+					<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
+				</form>
 			</div>
 		);
 	},

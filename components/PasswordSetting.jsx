@@ -8,20 +8,18 @@ var PasswordSetting = React.createClass({
 	},
 	render: function(){
 		return (
-			<div>
-			<div className="form-group">
-				<label>Old Password</label>
-				<input type="password" name="oldPassword" className="form-control" onChange={this._onChange}/>
-			</div>
-			<div className="form-group">
-				<label>New Password</label>
-				<input type="password" name="password" className="form-control" onChange={this._onChange}/>
-			</div>
-			<div className="form-group">
-				<label>Confirm Password</label>
-				<input type="password" name="confirnPassword" className="form-control" onChange={this._onChange}/>
-			</div>
-			<div><button type="button" class="btn btn-info" onClick={this._onClick}>CHANGE</button></div>
+			<div className="pwd-block">
+				<div className="page-title">
+					<h1>Password Settings</h1>
+				</div>
+				<form>
+					<div className="f1"><label>Old Password</label><input type="password" name="oldPassword" className="form-control" onChange={this._onChange}/></div>
+					<div className="f2"><label>New Password</label><input type="password" name="password" className="form-control" onChange={this._onChange}/></div>
+					<div className="f3"><label>Confirm Password</label><input type="password" name="confirnPassword" className="form-control" onChange={this._onChange}/></div>
+					<div className="button-block">
+						<button type="button" onClick={this._onClick}>Change Password</button>
+					</div>
+				</form>
 			</div>
 		);
 	},
