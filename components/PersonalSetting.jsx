@@ -25,7 +25,7 @@ var PersonalSetting = React.createClass({
 				{	this.state.editProfile &&
 					<form>
 						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange}/></div>
-						<div className="f2"><label>Email</label><input type="email" name="email" className="form-control"  onChange={this._onChange}/></div>
+						<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
 						<div className="button-block">
 							<button type="button" onClick={this._onClick}>Submit</button>
 						</div>
@@ -44,10 +44,9 @@ var PersonalSetting = React.createClass({
 	},
 	_onClick: function(){
 		
-		if( this.state.userName != ""  && this.state.email != "" ){
+		if( this.state.userName != "" ){
 			var requestData = {};
 			requestData.username = this.state.userName;
-			requestData.email = this.state.email;
 			console.log("===========requestData",requestData);
 			/*services.POST(config.url.updateProfile,requestData)
 			.then(function(data){
@@ -64,11 +63,6 @@ var PersonalSetting = React.createClass({
 		if(event.target.name == "userName"){
 			this.setState({
 				userName:event.target.value
-			})
-		}
-		else if(event.target.name == "email"){
-			this.setState({
-				email:event.target.value
 			})
 		}
 	}
