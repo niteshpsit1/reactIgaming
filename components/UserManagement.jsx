@@ -33,7 +33,7 @@ var UserManagement = React.createClass({
 				<div className="page-title">
                     <h1>All Users Details</h1>
                     <div className="filter-block">
-                        <a href="#" onClick={this._onClick}></a>
+                        <a href="#" onClick={this._onFilter}></a>
                     </div>
                 </div>
 				<div className="content">
@@ -43,28 +43,11 @@ var UserManagement = React.createClass({
 								<tbody>
 									<tr>
 										<td style={{width:'100px'}}><label>Name</label></td>
-										<td><input type="text" name="filterByName" onBlur={this._onBlur}/></td>
+										<td><input type="text" name="filterByName" onChange={this._onchange}/></td>
 										<td style={{width:'100px'}}><label>Email</label></td>
-										<td> <input type="email" name="filterByEmail" onBlur={this._onBlur}/>
-											<ul>
-											   <li>..1</li>
-											   <li>..2</li>
-											   <li>..3</li>
-											   <li>..4</li>
-											</ul>
-										</td>
+										<td> <input type="email" name="filterByEmail" onChange={this._onchange}/></td>
 									</tr>
 									<tr>
-										<td style={{width:'100px'}}><label>Clubs Joined</label> </td>
-										<td className="select-parent">
-											<select name="filterByClub"  onChange={this._onchange}>
-												<option value="select">Select</option>
-												{	this.state.clubList.map(function(club){
-														return <option value={club._id}>{club.name}</option>
-													})
-												}
-											</select>
-										</td>
 										<td style={{width:'100px'}}><label>Designation</label> </td>
 										<td className="select-parent">
 											<select name="filterByDesignation" onChange={this._onchange}>
@@ -79,7 +62,7 @@ var UserManagement = React.createClass({
 									<tr>
 										<td colspan="4">
 											<div className="button-block">
-												<button>Filter</button>
+												<button onClick={this._onClick}>Filter</button>
 											</div>
 										</td>
 									</tr>
@@ -102,28 +85,42 @@ var UserManagement = React.createClass({
 			</div>
 		);
 	},
-	_onClick: function(){
+	_onFilter: function(){
 		this.setState({
 			userFilter: !this.state.userFilter
 		});
 	},
-	_onBlur: function(event){
-
-		if( event.target.name == "filterByName"){
-			
-		}
-		else if(event.target.name == "filterByEmail"){
-			
-		}
-	},
 	_onchange: function(event){
 		
-		if (event.target.name == "filterByClub") {
-
+		if(event.target.name == "filterByDesignation"){
+			this.setState({
+				filterByDesignation: event.target.value
+			});
 		}
-		else if(event.target.name == "filterByDesignation"){
-
+		else if(event.target.name == "filterByEmail"){
+			this.setState({
+				filterByEmail: event.target.value
+			});
 		}
+		else if( event.target.name == "filterByName"){
+			this.setState({
+				filterByName: event.target.value
+			});
+		}
+	},
+	_onClick: function(){
+		var currentThis = this;
+		var requestData = {};
+		requestData.token = this.props.token;
+		services.POST(config.url.getAllUser, requestData)
+		.then(function(data){
+			currentThis.setState({
+				userList:data.response.result
+			});
+		}) 		
+		.catch(function(error){
+			console.log(error)
+		})
 	}
 	
 });
