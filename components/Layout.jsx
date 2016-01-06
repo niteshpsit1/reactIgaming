@@ -24,20 +24,32 @@ var Layout =  React.createClass({
             <div>
                 <h1>{this.state.token}</h1>
                 {   !this.state.isLogin &&
-                    <div>
-                        <form >
-                          <div className="form-group">
-                            <label >Email address:</label>
-                            <input name="username" type="email" className="form-control" onChange={this._onChange} />
-                          </div>
-                          <div class="form-group">
-                            <label>Password:</label>
-                            <input name="password" type="password" className="form-control" onChange={this._onChange}/>
-                          </div>
-                          <button type="button" className="btn btn-default" name="login" onClick={this._onClick}>Submit</button>
-                          { this.state.loginError &&
-                            <div><p className="text-primary">Messages: {this.state.loginError}</p></div>}
-                        </form>
+                    <div className="wrapper login-page">
+                        <div className="login-form">
+                            <div className="filter-form">
+                                <form>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style={{width:"80px"}}><label>Email-ID</label></td>
+                                                <td><input name="username" type="email" onChange={this._onChange}/></td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{width:"80px"}}><label>Password</label></td>
+                                                <td> <input name="password" type="password" onChange={this._onChange} /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div className="button-block">
+                                                        <button type="button" name="login" onClick={this._onClick}>Login</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
                     </div>}
             	{  this.state.isLogin &&
                     <div>
