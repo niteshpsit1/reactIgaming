@@ -100,9 +100,8 @@ var Layout =  React.createClass({
                             </div>}
         
                             {this.state.aboutUs &&
-                            <div className='bg-info'> 
-                            <h2>About Us</h2>
-                            <AboutUs token={this.state.token} />
+                            <div className="main about-us-page common-table"> 
+                                <AboutUs token={this.state.token} />
                             </div>}
                         </div>
                     </div>}

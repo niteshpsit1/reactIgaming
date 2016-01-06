@@ -27,11 +27,19 @@ var AboutUs = React.createClass({
 	},
 	render: function(){
 		return (
-			<div>
+			<div  className="main-content">
+				<div className="page-title">
+					<h1>About</h1>
+					<div class="filter-block edit">
+						<a href="">Edit</a>
+					</div>
+				</div>
 				{	!this.state.edit	&&
-					<div>
-					<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
-					<div id="aboutUsMessage"></div>
+					<div className="content">
+					<div className="abt-text-block">
+						<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
+						<div id="aboutUsMessage"></div>
+						</div>
 					</div>}
 
 				{	this.state.edit	&&
