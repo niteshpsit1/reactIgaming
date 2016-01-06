@@ -22,6 +22,7 @@ var Layout =  React.createClass({
     render: function() {
         return (
             <div>
+                <h1>{this.state.token}</h1>
                 {   !this.state.isLogin &&
                     <div>
                         <form >

@@ -9,7 +9,9 @@ var config = {
 		getTermAndConditions:baseUrl+'/rest/service/showTnc',
 		postTermAndConditions:baseUrl+'/rest/service/tnc',
 		getAboutUs:baseUrl+'/rest/service/aboutHtml',
-		postAboutUs:baseUrl+'/rest/service/aboutUs'
+		postAboutUs:baseUrl+'/rest/service/aboutUs',
+		changePassword:baseUrl+'/rest/service/resetPassword',
+		updateProfile:baseUrl+'/rest/service/editProfile'
 	},
 	pagination:{
 		pageSize:5
