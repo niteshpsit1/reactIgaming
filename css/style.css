@@ -5,18 +5,6 @@
 	padding: 0;
 	outline: none;
 }
-.text-left{
-	text-align: left;
-}
-.text-right{
-	text-align: right !important;
-}
-.text-center{
-	text-align: center !important;
-}
-.pd-left-25{
-	padding-left: 25px;
-}
 ul{
 	list-style: none;
 }
@@ -40,7 +28,6 @@ html, body{
 }
 body{
 	min-width: 1024px;
-	position: relative;
 }
 body, button{
 	font-family: 'Roboto', sans-serif; 
@@ -72,18 +59,18 @@ aside{
 }
 table{
 	width: 100%;
+	cellpadding:0;
+	cellspacing:0;
 }
 th{
-	background-color: #edf7f9;
-	font-weight: 400;
+	background-color: #edf7f9
 }
 td, th{
 	padding: 5px;
 	border:1px solid #e7e7e7;
 }
 .log-out, .navigation li a:before, ul.notifications-details li:before, .page-title h1:before, .filter-block a:after, 
-.common-table td .ride, .common-table td a, .club-details td a, .ride-name th p span
-{background-image: url('../images/bg_imgs/icons-sprite.png');}
+.user-mgt-page td .ride, .user-mgt-page td a{background-image: url('../images/bg_imgs/icons-sprite.png');}
 .logo-wrapper{
 	width: 275px; 
 	text-align: center;
@@ -252,7 +239,6 @@ a.log-out {
     right: 17px;
     top: 50%;
     margin-top: -10px;
-    pointer-events:none;
 }
 .filter-block{
 	width: 80px;
@@ -260,11 +246,6 @@ a.log-out {
 	line-height: 27px;
 	color: #4e5050;
 	position: relative;
-}
-.filter-block.edit{
-	padding-left: 10px;
-	width: 90px;
-	border:none;
 }
 .messages-block{
 	position: relative;
@@ -342,7 +323,7 @@ button {
 .abt-text{
 	padding: 0 20px;
 	margin: 20px 0;
-	color: rgba(117,119,119,0.8);
+	color: #757777;
 	line-height: 24px;
 }
 .about-us-page .page-title h1:before{
@@ -417,57 +398,52 @@ ol p {
 	margin: 30px 0 8px;
 	color: #979898;
 }
-.common-table .page-title h1::before {
+.user-mgt-page .page-title h1::before {
     background-position: -30px 1px;
     height:24px;
     margin-top:-12px;
 }
-.filter-block {
+.user-mgt-page .filter-block {
 	border-left: 1px solid #979898;
 	width: 65px;
 }
-.common-table .filter-block a::after {
+.user-mgt-page .filter-block a::after {
     background-position: -270px -3px;
     content: "";
 }
 
-.common-table .filter-block.active a::after {
-    background-position: -270px -28px;
+.user-mgt-page .filter-block.active a::after {
+    background-position: -270px -27px;
 }
-.common-table th, .modal.pop-up th{
+.user-mgt-page th{
 	border: none;
 	text-align: left;
 	font-size: 16px;
 	color: #757a7a;
 	padding: 15px 20px;
 }
-.common-table td{
+.user-mgt-page td{
 	padding: 20px;
 	color: #979898;
 }
-.common-table td a{
+.user-mgt-page td a{
 	display:block;
 	width: 23px;
 	height: 23px;
 	float: left;
 }
-.common-table td .remove {
+.user-mgt-page td .remove {
     background-position: -297px 0;
     margin: 0 10px;
 }
-.common-table td .trophies {
+.user-mgt-page td .trophies {
     background-position: -298px -26px;
-    margin-left: 25px;
+    margin-left: 10px;
 }
-.common-table td p {
-	display: inline;
-	vertical-align: middle;
-	margin-left: 10px;
+.user-mgt-page td p {
+    float: left;
 }
-.common-table td td p {
-    margin: 0;
-}
-.common-table td .ride{
+.user-mgt-page td .ride{
 	background-position: -63px 1px;
 	width: 30px;
 	height: 30px;
@@ -514,279 +490,31 @@ ol p {
 }
 .filter-form{
 	padding: 10px 0;
-	height: 205px;
 }
 .filter-form td{
 	padding: 10px 20px;
 }
-/*Modal popup css starts*/
-.modal-overlay{
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background: rgba(0,0,0,0.6);
-}
-.modal.pop-up{
-	position: absolute;
-	width: 790px;
-	height: 325px;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-	background: #fff;
-}
-.modal.pop-up td{
-	padding: 0;
-}
-.modal.pop-up td td{
-	padding: 18px;
-	border-left: none;
-	border-right: none;
-}
-.modal.pop-up th{
-	border-left: none;
-	border-right: none;
-}
-.pop-up_img-box{
-	vertical-align: top;
-	width: 170px;
-}
-.pop-up_img-box td{
-	border: none;
-}
-.pop-up_img-box td p {
-    padding-bottom: 15px;
-}
-.modal.pop-up td td{
-	padding: 22px 18px;
-}
-td.pop-up_img-box td {
-    padding: 18px !important;
-}
-.popup-club-name tr p, .club-details tr td:first-child p{
-	position: relative;
-}
-.popup-club-name tr p:before, .club-details tr td:first-child p:before{
-	content: "";
-	position: absolute;
-	width: 12px;
-	height: 12px;
-	top: 50%;
-	margin-top: -6px;
-	left: -28px;
-}
-.popup-club-name td {
-    padding-left: 50px !important;
-}
-.popup-club-name tr:nth-child(1) p:before, .club-details tr:nth-child(3n-2) td:first-child p:before{
-	background: #8ad223;
-}
-.popup-club-name tr:nth-child(2) p:before, .club-details tr:nth-child(3n-1) td:first-child p:before{
-	background: #05719e;
-}
-.popup-club-name tr:nth-child(3) p:before, .club-details tr:nth-child(3n) td:first-child p:before{
-	background: #e00777;
-}
-.modal .filter-block a {
+.wrapper.login-page {
     display: block;
-    height: 22px;
-    width: 31px;
-    margin: 0 auto;
-    cursor: pointer;
+    height: 100%;
+    background: linear-gradient(0deg,#e1e1e1, #fff);
+	-webkit-background: linear-gradient(0deg,#e1e1e1, #fff);
+	-moz-background: linear-gradient(0deg,#e1e1e1, #fff);
+	-o-background: linear-gradient(0deg,#e1e1e1, #fff);
+	-ms-background: linear-gradient(0deg,#e1e1e1, #fff);
 }
-.common-table table td:first-child p{
-	cursor: pointer;
+.login-form {
+   width: 480px;
+   height: 225px;
+   border: 1px solid rgba(178, 178, 178, 0.46);
+   margin: 150px auto 0;
+   background: #fff;
+   padding-top: 10px;
 }
-.hide{
-	transform:scale(0,0); -mstransform:scale(0,0); -webkit-transform:scale(0,0); -moz-transform:scale(0,0);
-	transform-origin: 50% 50%; -ms-transform-origin: 50% 50%; -moz-transform-origin: 50% 50%; -webkit-transform-origin: 50% 50%;
-	opacity: 0;
+a.forgot-pwd, a.change-pwd {
+    color: #3ABCB2;
+    font-size: 12px;
 }
-.form-hide{
-	height: 0px;
-	overflow: hidden;
-	transform:scale(0,0); -mstransform:scale(0,0); -webkit-transform:scale(0,0); -moz-transform:scale(0,0);
-	padding: 0;
-	opacity: 0;
-	visibility: hidden;
-}
-#club-listing .page-title h1:before{
-	height: 25px;
-	background-position: -64px 0px;
-	margin-top: -12px;
-}
-#modal-overlay1 .filter-block a:after{
-	background-position: -327px -3px;
-}
-.main *, #modal-overlay1{transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -ms-transition: all 0.5s ease-in-out;}
-aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transition: all 0s; -moz-transition: all 0s}
-
-/*Modal popup css ends*/
-
-/*Club-details page css starts*/
-
-.club-details td .users {
-    background-position: -359px -28px;
-    margin: 0 15px;
-    width: 23px;
-    height: 23px;
-}
-.club-details td .gallery {
-    background-position: -327px -27px;
-    margin: 0 15px;
-    width: 23px;
-    height: 23px;
-}
-
-.club-details td .ride {
-    background-position: -359px -1px;
-    margin: 0 15px;
-    width: 23px;
-    height: 23px;
-}
-.club-details td td .ride {
-    margin-left: 0;
-}
-.club-details tr td:first-child, .club-details tr td:nth-child(2){
-	padding-right: 80px
-}
-.club-details tr td:nth-child(2){
-	padding-left: 20px;
-}
-.club-details tr td:first-child{
-	padding-left: 40px;
-}
-.club-details td:last-child {
-	text-align: center;
-}
-.club-details td:last-child a{
-	display: inline-block;
-	float: none;
-}
-.club-details tr td{
-	padding: 18px 10px;
-}
-.expandable .filter-block a{
-	display: block;
-	height: 23px;
-	width: 23px;
-	margin: 0 auto;
-}
-/*Club-details page css starts*/
-
-.club-details tr tr td {
-    padding: 23px 20px !important;
-    text-align: left !important;
-    background: #3abcb2;
-    color: #fff;
-    border: 1px dashed rgba(218, 218, 218, 0.8);
-    border-left: none;
-    border-right: none;
-    border-top: none;
-}
-.club-details tr td .inner-table p:before{
-	content: none;
-}
-.club-details tr td .inner-table th:first-child p{
-	margin: 0;
-}
-.club-details tr td .inner-table td:first-child p{
-	margin-left: 30px;
-}
-.club-details tr td .inner-table td:first-child p:before{
-	content: "";
-	background-color: #fff;
-}
-.common-table tr td .filter-block{
-	border-color: #fff
-}
-div.filter-block a{
-	background-image: none;
-	display: block !important;
-	margin: 0 auto;
-	min-width: 30px;
-	min-height: 22px;
-	color: rgba(117,119,119,0.8);
-}
-.common-table tr td .filter-block a::after{
-	background-position: -387px -3px;
-}
-.common-table tr td .page-title {
-    background: #e00777;
-    color: #fff !important;
-    text-align: left;
-    border: none;
-}
-.members-listing tr td .page-title h1::before {
-    background-position: -387px -29px;
-}
-td th{
-	background-color: #f4f4f4;
-}
-.club-details td td .ride{
-	background-position: -414px -1px;
-}
-.club-listing .page-title h1::before, .all-club-details .page-title h1::before{
-    background-position: -65px 0px;
-}
-.active.users {
-    background-position: -415px -28px !important;
-}
-.active.ride {
-    background-position: -444px -2px !important;
-}
-.rides-listing tr td .page-title h1::before {
-    background-position: -413px -2px;
-}
-.rides-listing .inner-table td:last-child a{
-	float: left;
-	background-position: -389px -29px;
-}
-.modal.pop-up.ride-name{
-	height: 370px
-}
-.modal.pop-up.ride-name th{
-	background-color: #e00777;
-	color: #fff;
-}
-.ride-name .page-title h1:before{
-	background-position: -354px -3px;
-}
-.ride-name.modal.pop-up td{
-	padding: 15px 20px;
-	color: rgba(117, 119, 119, 0.8);
-}
-.modal.pop-up td{
-	color: rgba(117, 119, 119, 0.8);
-}
-.ride-name.modal.pop-up td p {
-    line-height: 24px;
-}
-.ride-name th p{
-	display: inline-block; 
-	height: 22px;
-	margin-left: 35px;
-}
-.ride-name th p span{
-    height: 22px;
-    width: 25px;
-    display: inline-block;
-    float: left;
-    margin-right: 8px
-}
-.ride-name th p span.time {
-    background-position: -445px -29px;
-}
-.ride-name th p span.date {
-    background-position: -474px -4px;
-}
-.ride-members-listing .page-title h1:before {
-    background-position: -356px -30px;
-}
-.members-listing-expanded .page-title h1:before {
-    background-position: -356px -4px;
+.login-form .filter-form label {
+    min-width: 0;
 }
