@@ -73,12 +73,6 @@ var Layout =  React.createClass({
                             {this.state.userManagementState && 
                             <div className="main user-mgt-page common-table">
                                 <div className="main-content">
-                                    <div className="page-title">
-                                        <h1>All Users Details</h1>
-                                        <div className="filter-block">
-                                            <a href="#"></a>
-                                        </div>
-                                    </div>
                                     <UserManagement token={this.state.token} />
                                 </div>
                             </div>}
