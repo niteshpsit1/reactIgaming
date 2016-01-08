@@ -1,7 +1,7 @@
 var AboutUs = React.createClass({
 	getInitialState: function (){
 		return {
-			aboutUsMessage:'<p>ram \n sadf n</p>',
+			aboutUsMessage:'',
 			edit:false
 		}
 	},
@@ -18,7 +18,7 @@ var AboutUs = React.createClass({
 				})	
 			}, 0);
 			setTimeout(function() {
-				$('#aboutUsMessage').html((JSON.stringify(currentThis.state.aboutUsMessage)).replace(/^\s+|\s+$/g, ''));
+				$('#aboutUsMessage').html((currentThis.state.aboutUsMessage).replace(/^\s+|\s+$/g, ''));
 			}, 0);
 		})
 		.catch(function(error){
@@ -30,22 +30,29 @@ var AboutUs = React.createClass({
 			<div  className="main-content">
 				<div className="page-title">
 					<h1>About</h1>
-					<div class="filter-block edit">
-						<a href="">Edit</a>
+					<div className="filter-block edit">
+						<a href="#" name="edit" onClick={this._onClick}>Edit</a>
 					</div>
 				</div>
 				{	!this.state.edit	&&
 					<div className="content">
-					<div className="abt-text-block">
-						<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
-						<div id="aboutUsMessage"></div>
+						<div className="abt-text-block">
+							<p className="abt-text">
+								<div id="aboutUsMessage"></div>
+							</p>
 						</div>
 					</div>}
 
 				{	this.state.edit	&&
-					<div>
-					<textarea rows="10"  cols="15" name="aboutUsMessage"  value={this.state.aboutUsMessage}></textarea>
-					<button type="button" name="change" class="btn btn-danger"  onClick={this._onClick}>CHANGE</button>
+					<div className="content">
+						<div className="abt-text-block">
+							<p className="abt-text">
+								<div>
+								<textarea rows="10"  cols="15" name="aboutUsMessage"  value={this.state.aboutUsMessage}></textarea>
+								<button type="button" name="change" className="btn btn-danger"  onClick={this._onClick}>CHANGE</button>
+								</div>
+							</p>
+						</div>
 					</div>}
 			
 			</div>
@@ -79,7 +86,7 @@ var AboutUs = React.createClass({
 						})	
 					}, 0);
 					setTimeout(function() {
-						$('#aboutUsMessage').html(JSON.stringify(currentThis.state.aboutUsMessage).replace(/(\r\n|\n|\r)/gm," "));
+						$('#aboutUsMessage').html((currentThis.state.aboutUsMessage).replace(/^\s+|\s+$/g, ''));
 					}, 0);
 				}
 			})

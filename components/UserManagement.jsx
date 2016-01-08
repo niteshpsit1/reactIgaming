@@ -8,7 +8,6 @@ var UserManagement = React.createClass({
 			userFilter:false,
 			filterByName:"",
 			filterByEmail:"",
-			filterByClub:"",
 			filterByDesignation:"",
 			value:"select"
 		}
@@ -51,7 +50,7 @@ var UserManagement = React.createClass({
 										<td style={{width:'100px'}}><label>Designation</label> </td>
 										<td className="select-parent">
 											<select name="filterByDesignation" onChange={this._onchange}>
-												<option value="select">Select</option>
+												<option value="">Select</option>
 												{	this.state.designations.map(function(designation){
 														return <option value={designation.name}>{designation.name}</option>
 													})
@@ -112,7 +111,10 @@ var UserManagement = React.createClass({
 		var currentThis = this;
 		var requestData = {};
 		requestData.token = this.props.token;
-		services.POST(config.url.getAllUser, requestData)
+		requestData.name = this.state.filterByName;
+		requestData.email = this.state.filterByEmail;
+		requestData.designation = this.state.filterByDesignation;
+		services.POST(config.url.userListFilter, requestData)
 		.then(function(data){
 			currentThis.setState({
 				userList:data.response.result

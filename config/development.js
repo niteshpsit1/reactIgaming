@@ -11,7 +11,8 @@ var config = {
 		getAboutUs:baseUrl+'/rest/service/aboutHtml',
 		postAboutUs:baseUrl+'/rest/service/aboutUs',
 		changePassword:baseUrl+'/rest/service/resetPassword',
-		updateProfile:baseUrl+'/rest/service/editProfile'
+		updateProfile:baseUrl+'/rest/service/editProfile',
+		userListFilter:baseUrl+'/rest/service/filter'
 	},
 	pagination:{
 		pageSize:5
