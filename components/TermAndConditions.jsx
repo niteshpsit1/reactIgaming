@@ -18,7 +18,7 @@ var TermAndConditions = React.createClass({
 				})	
 			}, 0);
 			setTimeout(function() {
-				$('#termAndConditionMessage').html((JSON.stringify(currentThis.state.termAndConditionMessage)).replace(/^\s+|\s+$/g, ''));
+				$('#termAndConditionMessage').html((currentThis.state.termAndConditionMessage).replace(/^\s+|\s+$/g, ''));
 			}, 0);
 		})
 		.catch(function(error){
@@ -27,19 +27,31 @@ var TermAndConditions = React.createClass({
 	},
 	render: function(){
 		return (
-			<div>
+			<div className="main-content">
+				<div className="page-title">
+					<h1>Term & Conditions</h1>
+					<div className="filter-block edit">
+						<a href="#" name="edit" onClick={this._onClick}>Edit</a>
+					</div>
+				</div>
 				{	!this.state.edit	&&
-					<div>
-					<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
-					<div id="termAndConditionMessage"></div>
+					<div className="content">
+						<div className="tc-block">
+							<p className="abt-text">
+								<div id="termAndConditionMessage"></div>
+							</p>
+						</div>
 					</div>}
 
 				{	this.state.edit	&&
-					<div>
-					<textarea rows="10" cols="15" name="termAndConditionMessage"  value={this.state.termAndConditionMessage}></textarea>
-					<button type="button" name="change" class="btn btn-danger" onClick={this._onClick}>CHANGE</button>
+					<div className="content">
+						<div className="tc-block">
+							<p className="abt-text">
+								<textarea rows="10" cols="15" name="termAndConditionMessage"  value={this.state.termAndConditionMessage}></textarea>
+								<button type="button" name="change" class="btn btn-danger" onClick={this._onClick}>CHANGE</button>
+							</p>
+						</div>
 					</div>}
-			
 			</div>
 		);
 	},
@@ -69,7 +81,7 @@ var TermAndConditions = React.createClass({
 					})	
 					}, 0);
 					setTimeout(function() {
-						$('#termAndConditionMessage').html(JSON.stringify(currentThis.state.termAndConditionMessage).replace(/(\r\n|\n|\r)/gm," "));
+						$('#termAndConditionMessage').html((currentThis.state.termAndConditionMessage).replace(/(\r\n|\n|\r)/gm," "));
 					}, 0);
 				}
 			})

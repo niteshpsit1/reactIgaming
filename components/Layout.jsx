@@ -106,9 +106,8 @@ var Layout =  React.createClass({
                             </div>}
         
                             {this.state.termAndConditions &&
-                            <div className='bg-info'> 
-                            <h2>Term and Condition</h2>
-                            <TermAndConditions token={this.state.token} />
+                            <div className="main tc-page">
+                                <TermAndConditions token={this.state.token} />
                             </div>}
         
                             {this.state.aboutUs &&
