@@ -44,7 +44,10 @@ var Layout =  React.createClass({
                                                         <button type="button" name="login" onClick={this._onClick}>Login</button>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> 
+                                            <div>
+                                                <span>{this.state.loginError}</span>
+                                            </div>
                                         </tbody>
                                     </table>
                                 </form>
