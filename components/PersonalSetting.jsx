@@ -52,6 +52,9 @@ var PersonalSetting = React.createClass({
 					currentThis.setState({
 						editProfile: !currentThis.state.editProfile,
 					});
+					localStorage.setItem('wikedrideSuperAdminName', JSON.stringify({
+                        adminName:currentThis.state.userName
+                    }));
 				}
 			})
 			.catch(function(error){

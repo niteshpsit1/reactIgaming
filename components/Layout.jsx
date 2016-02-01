@@ -17,7 +17,7 @@ var Layout =  React.createClass({
 			settingState:false,
 			termAndConditions:false,
 			aboutUs:false,
-            adminName:localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).userCredentials.username : ""
+            adminName:localStorage.getItem("wikedrideSuperAdminName") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminName")).adminName : ""
 		}
 	},
     render: function() {
@@ -158,6 +158,9 @@ var Layout =  React.createClass({
                     localStorage.setItem('wikedrideSuperAdminIsLogin', JSON.stringify({
                         token:data.response.token,
                         userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
+                    }));
+                    localStorage.setItem('wikedrideSuperAdminName', JSON.stringify({
+                        adminName:data.response.user.fullname
                     }));
                     setTimeout(function() {
                         currentThis.setState({
