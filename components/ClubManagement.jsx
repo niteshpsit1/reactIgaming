@@ -19,8 +19,9 @@ var ClubManagement = React.createClass({
 		};
 		services.POST(config.url.getAllClub, requestData)
 		.then(function(data){
+			console.log(data);
 			currentThis.setState({
-				clubs:data.response
+				clubs:data.response.result
 			});
 		})
 		.catch(function(error){
@@ -31,17 +32,33 @@ var ClubManagement = React.createClass({
 		var currentThis = this;
 		return (
 			<div>
-			<div className="row">
-				<div className="well col-md-3">club Name</div>
-				<div className="well col-md-3">creator name</div>
-				<div className="well col-md-3">Date</div>
-				<div className="well col-md-3">Time</div>
-			</div>
-			{this.state.clubs.map(function(club){
-				return <ClubList token={currentThis.props.token} club={club}/>
-			})}
+				<div className="page-title">
+					<h1>All Club Details</h1>
+					<div className="filter-block">
+						<a href="#" onClick={this._onFilter}></a>
+					</div>
+				</div>
+				<div className="content">
+					<table cellspacing="0" cellpadding="25" className="club-details">
+						<th><p>Club Name</p></th>
+						<th>Creator Name</th>
+						<th>Date</th>
+						<th>Time</th>
+						<th></th>
+						<tbody>
+							{this.state.clubs.map(function(club){
+								return <ClubList token={currentThis.props.token} club={club}/>
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		);
+	},
+	_onFilter: function(){
+		this.setState({
+			userFilter: !this.state.userFilter
+		});
 	},
 	_onClick: function(event){
 		var currentThis = this;

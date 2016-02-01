@@ -16,13 +16,13 @@ var Layout =  React.createClass({
 			clubManagementState:false,
 			settingState:false,
 			termAndConditions:false,
-			aboutUs:false
+			aboutUs:false,
+            adminName:localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).userCredentials.username : ""
 		}
 	},
     render: function() {
         return (
             <div>
-                <h1>{this.state.token}</h1>
                 {   !this.state.isLogin &&
                     <div className="wrapper login-page">
                         <div className="login-form">
@@ -63,7 +63,7 @@ var Layout =  React.createClass({
                                 </a>
                             </div>
                             <div className="admin-details">
-                                <p>Admin Name <span>{this.state.userCredentials.username}</span></p>
+                                <p>Admin Name <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
                                 <p className="account-img"><img src="images/bg_imgs/user-icon1.jpg"/></p>
                                 <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
                             </div>
@@ -93,9 +93,10 @@ var Layout =  React.createClass({
                             </div>}
         
                             {this.state.clubManagementState &&
-                            <div className='bg-info'> 
-                            <h2>Club Management</h2>
-                            <ClubManagement token={this.state.token}  />
+                            <div className='main common-table club-listing'> 
+                                <div className="main-content">
+                                    <ClubManagement token={this.state.token}  />
+                                </div>
                             </div>}
         
                             {this.state.settingState &&
@@ -104,7 +105,7 @@ var Layout =  React.createClass({
                                     <div className="page-title">
                                         <h1>General Settings</h1>
                                     </div>
-                                    <SettingComponent token={this.state.token} userCredentials={this.state.userCredentials}/>
+                                    <SettingComponent token={this.state.token} userCredentials={this.state.userCredentials} personalSetting={this._personalSetting}/>
                                 </div>
                             </div>}
         
@@ -138,6 +139,11 @@ var Layout =  React.createClass({
             });
         }
     },
+    _personalSetting: function(newName){
+        this.setState({
+            adminName: newName
+        });   
+    },
     _onClick: function(event){
         var currentThis = this;
         console.log("userCredentials",this.state.userCredentials);
@@ -156,7 +162,8 @@ var Layout =  React.createClass({
                     setTimeout(function() {
                         currentThis.setState({
                             token: data.response.token,
-                            userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid}
+                            userCredentials:{username:data.response.user.fullname,emailId:data.response.user.emailid},
+                            adminName:data.response.user.fullname
                         });
                     }, 0);
                     setTimeout(function() {

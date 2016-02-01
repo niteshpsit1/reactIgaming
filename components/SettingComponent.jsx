@@ -3,7 +3,7 @@ var SettingComponent = React.createClass({
 		return (
 			<div className="content setting-content">
 				<PasswordSetting token={this.props.token} userCredentials={this.props.userCredentials}/>
-				<PersonalSetting token={this.props.token} userCredentials={this.props.userCredentials}/>
+				<PersonalSetting token={this.props.token} userCredentials={this.props.userCredentials} personalSetting={this.props.personalSetting}/>
 			</div>
 		);
 	}

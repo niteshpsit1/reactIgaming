@@ -1,8 +1,7 @@
 var PersonalSetting = React.createClass({
 	getInitialState: function(){
 		return {
-			email:"",
-			userName:"",
+			userName:this.props.userCredentials.username,
 			editProfile:false
 		}
 	},
@@ -18,13 +17,13 @@ var PersonalSetting = React.createClass({
 			
 				{   !this.state.editProfile &&
 					<form>
-						<div className="f1"><label>Name</label><p>{this.props.userCredentials.username}</p></div>
+						<div className="f1"><label>Name</label><p>{this.state.userName}</p></div>
 						<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
 					</form>
 				}
 				{	this.state.editProfile &&
 					<form>
-						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange}/></div>
+						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange} value={this.state.userName}/></div>
 						<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
 						<div className="button-block">
 							<button type="button" onClick={this._onClick}>Submit</button>
@@ -37,23 +36,27 @@ var PersonalSetting = React.createClass({
 	},
 	_onEdit: function(){
 		this.setState({
-			userName:"",
-			email:"",
 			editProfile: !this.state.editProfile
 		});
 	},
 	_onClick: function(){
-		
+		var currentThis = this;
 		if( this.state.userName != "" ){
 			var requestData = {};
-			requestData.username = this.state.userName;
-			console.log("===========requestData",requestData);
-			/*services.POST(config.url.updateProfile,requestData)
+			requestData.token = this.props.token;
+			requestData.name = this.state.userName;
+			services.POST(config.url.updateProfile,requestData)
 			.then(function(data){
-				currentThis.setState({
-					userList:data.response.result
-				});
-			})*/
+				if(data.response.flag){
+					currentThis.props.personalSetting(currentThis.state.userName);
+					currentThis.setState({
+						editProfile: !currentThis.state.editProfile,
+					});
+				}
+			})
+			.catch(function(error){
+				console.log("==============",error);
+			});
 		}
 		else{
 			alert("fields can not be  blank");

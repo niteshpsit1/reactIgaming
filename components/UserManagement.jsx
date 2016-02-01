@@ -16,7 +16,7 @@ var UserManagement = React.createClass({
 		var currentThis = this;
 		var requestData = {};
 		requestData.token = this.props.token;
-		services.POST(config.url.getAllUser, requestData)
+		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
 			currentThis.setState({
 				userList:data.response.result
