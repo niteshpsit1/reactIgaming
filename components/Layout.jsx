@@ -201,6 +201,7 @@ var Layout =  React.createClass({
         }
         else if($(event.target).attr("name") == "logout"){
             localStorage.removeItem("wikedrideSuperAdminIsLogin");
+            localStorage.removeItem("wikedrideSuperAdminName");
             currentThis.setState({
                 loginError: "",
                 isLogin:false,
