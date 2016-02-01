@@ -1,4 +1,4 @@
-var baseUrl = 'http://45.33.86.141/wickedride'
+var baseUrl = 'http://52.91.173.133'
 var config = {
 	url: {
 		adminLogin:baseUrl+'/rest/connect',
